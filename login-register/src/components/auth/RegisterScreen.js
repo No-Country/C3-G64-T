@@ -1,18 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
+import validator from "validator";
 
 const RegisterScreen = () => {
   const initialUser = {
-    nick: "maxcal",
-    name: "Maximiliano",
-    lastname: "Calderón",
-    email: "calderonmaxi@outlook.com",
-    password: "1234",
-    password2: "1234",
-    dni: 36169378,
+    nick: "Emc",
+    name: "Albert",
+    lastname: "Einstein",
+    email: "mimail@gmail.com",
+    password: "123456",
+    password2: "123456",
+    dni: 33333333,
     birthday: "1991-08-12",
-    phone: "2616531850",
+    phone: "2618546239",
   };
 
   const [formValues, handleInputChange] = useForm(initialUser);
@@ -21,7 +22,26 @@ const RegisterScreen = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log(nick, name, lastname, email, password, password2, dni, birthday, phone)
+    if (isFormValid()) {
+      console.log("Formulario válido");
+    }
+  };
+
+  const isFormValid = () => {
+    if (validator.isEmpty(name , { ignore_whitespace: true })) {
+      return false;
+    } else if (validator.isEmpty(lastname,  { ignore_whitespace: true })) {
+      return false;
+    }else if (!validator.isEmail(email)) {
+      return false;
+    }else if (password !== password2 || password.length < 6) {
+      return false;
+    } else if (validator.isAfter (birthday)) {
+      return false;
+    }else if (validator.isEmpty(dni.toString(),  { ignore_whitespace: true })) {
+      return false;
+    }
+    return true;
   };
 
   return (
@@ -36,6 +56,7 @@ const RegisterScreen = () => {
           autoComplete="off"
           onChange={handleInputChange}
           value= {nick}
+          required
         />
         <input
           className="auth__input"
@@ -45,6 +66,7 @@ const RegisterScreen = () => {
           autoComplete="off"
           onChange={handleInputChange}
           value= {name}
+          required
         />
         <input
           className="auth__input"
@@ -54,15 +76,17 @@ const RegisterScreen = () => {
           autoComplete="off"
           onChange={handleInputChange}
           value= {lastname}
+          required
         />
           <input
             className="auth__input"
-            type="text"
+            type="email"
             placeholder="Email"
             name="email"
             autoComplete="off"
             onChange={handleInputChange}
             value= {email}
+            required
           />
         <input
           className="auth__input"
@@ -71,6 +95,7 @@ const RegisterScreen = () => {
           name="password"
           onChange={handleInputChange}
           value= {password}
+          required
         />
         <input
           className="auth__input"
@@ -79,6 +104,7 @@ const RegisterScreen = () => {
           name= "password2"
           onChange={handleInputChange}
           value= {password2}
+          required
         />
         <input
           className="auth__input"
@@ -88,6 +114,7 @@ const RegisterScreen = () => {
           autoComplete="off"
           onChange={handleInputChange}
           value= {dni}
+          required
         />
         <input
           className="auth__input"
@@ -97,14 +124,16 @@ const RegisterScreen = () => {
           autoComplete="off"
           onChange={handleInputChange}
           value= {birthday}
+          required
         />
         <input
           className="auth__input"
-          type="number"
+          type="tel"
           placeholder="Phone"
           name="phone"
           onChange={handleInputChange}
           value= {phone}
+          required
         />
 
         <button className="btn btn-primary btn-block mb-5" type="submit" >
