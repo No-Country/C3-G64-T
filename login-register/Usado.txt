@@ -2,3 +2,4 @@
 -React-redux
 -Firebase
 -React Thunk
+-Validator.Js
