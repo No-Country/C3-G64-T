@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import validator from "validator";
+import { useDispatch, useSelector } from "react-redux";
+import { setUiError, removeUiError } from "../../actions/ui";
 
 const RegisterScreen = () => {
   const initialUser = {
@@ -20,6 +22,9 @@ const RegisterScreen = () => {
 
   const { nick, name, lastname, email, password, password2, dni, birthday, phone } = formValues;
 
+  const dispatch = useDispatch();
+  const { msgError } = useSelector((state) => state.ui);
+
   const handleRegister = (e) => {
     e.preventDefault();
     if (isFormValid()) {
@@ -28,19 +33,28 @@ const RegisterScreen = () => {
   };
 
   const isFormValid = () => {
-    if (validator.isEmpty(name , { ignore_whitespace: true })) {
+
+    if (name.trim().length < 2) {
+      dispatch(setUiError("Please, introduce a complete name"));
       return false;
-    } else if (validator.isEmpty(lastname,  { ignore_whitespace: true })) {
+    } else if (lastname.trim().length < 2) {
+      dispatch(setUiError("Please, introduce a complete surname"));
       return false;
-    }else if (!validator.isEmail(email)) {
+    } else if (!validator.isEmail(email)) {
+      dispatch(setUiError("Please, introduce a valid email"));
       return false;
-    }else if (password !== password2 || password.length < 6) {
+    } else if (password !== password2 || password.length < 6) {
+      dispatch(setUiError("Password must be at least 6 characters long"));
       return false;
-    } else if (validator.isAfter (birthday)) {
+    } else if (validator.isAfter(birthday)) {
+      dispatch(setUiError("Date cannot be equal or greater than current day"));
       return false;
-    }else if (validator.isEmpty(dni.toString(),  { ignore_whitespace: true })) {
+    } else if (validator.isEmpty(dni.toString(), { ignore_whitespace: true })) {
+      dispatch(setUiError("ID muts be a valid combinaion of numbers"));
       return false;
     }
+
+    dispatch(removeUiError());
     return true;
   };
 
@@ -48,6 +62,7 @@ const RegisterScreen = () => {
     <>
       <form onSubmit={handleRegister}>
         <h3 className="auth__title mb-5">Register</h3>
+        {msgError && <div className="auth__alert-error">{msgError}</div>}
         <input
           className="auth__input"
           type="text"
