@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/scrollbar.css" />
+    <link rel="stylesheet" href="/css/register.css" />
+    <!-- <link rel="stylesheet" href="/src/main/resources/static/css/register.css" /> -->
+    <link rel="shortcut icon" href="/images/logo.png" />
+    <!-- <link rel="shortcut icon" href="/src/main/resources/static/images/logo.png" /> -->
+    <title>Registrar | Getpass.</title>
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@1,400;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <!--Font de: TITULO-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="register-container">
+      <div class="register-form-bg"></div>
+
+      <div class="register-form-container">
+        <div class="register-form-logo">
+          <img src="/images/logo.png" alt="" class="logo" />
+          <!-- <img src="/src/main/resources/static/images/logo.png" alt="" class="logo" /> -->
+          <h1 class="title">Getpass</h1>
+        </div>
+
+        <div th:if="${error != null}" class="error-container">
+          <i class="fas fa-exclamation-triangle"></i>
+          <p th:text="${error}" class="error"></p>
+        </div>
+        <form class="register-form" th:action="@{/registerUser}" method="POST">
+          <div class="input-register">
+            <label for="">nombre de usuario</label>
+            <input
+              type="text"
+              name="nick"
+              placeholder="Nombre de usuario"
+              th:value="${nick}"
+            />
+          </div>
+          <div class="input-register-double">
+            <div class="input-register-title">
+              <label for="">nombre</label>
+              <input
+                type="text"
+                placeholder="Nombre"
+                name="name"
+                th:value="${name}"
+              />
+            </div>
+            <div class="input-register-title">
+              <label for="">apellido</label>
+              <input
+                type="text"
+                placeholder="Apellido"
+                name="lastName"
+                th:value="${lastName}"
+              />
+            </div>
+          </div>
+          <div class="input-register-double">
+            <div class="input-register-title">
+              <label for="">telefono</label>
+              <input
+                type="text"
+                placeholder="Telefono"
+                name="phone"
+                th:value="${phone}"
+              />
+            </div>
+            <div class="input-register-title">
+              <label for="">dni</label>
+              <input
+                type="text"
+                name="dni"
+                placeholder="DNI"
+                th:value="${dni}"
+              />
+            </div>
+          </div>
+          <div class="input-register">
+            <label for="">email</label>
+            <input
+              type="email"
+              placeholder="Direccion de correo electrónico"
+              name="email"
+              th:value="${email}"
+            />
+          </div>
+          <div class="input-register-double">
+            <div class="input-register-title">
+              <label for="">contraseña</label>
+              <input
+                type="password"
+                name="password"
+                pattern="[A-Za-z][A-Za-z0-9]*[0-9][A-Za-z0-9]*"
+                title="La contraseña debe contener letras y
+              al menos un numero"
+                required
+                placeholder="Contraseña"
+              />
+            </div>
+            <div class="input-register-title">
+              <label for="">confirmar contraseña</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Repetir contraseña"
+              />
+            </div>
+          </div>
+          <div class="input-register">
+            <label for="">fecha de nacimiento</label>
+            <div class="input-register-date">
+              <input
+              type="date"
+              name="date"
+              placeholder="fecha de nacimiento"
+              th:value="${date}"
+              />
+            </div>
+          </div>
+          <div class="terms-conditions-container">
+            <p>
+              Al hacer clic en "Registrarme", aceptas nuestras
+              <a
+                th:href="@{/register/condiciones}"
+                id=""
+                target="_blank"
+                rel="nofollow"
+                >Condiciones</a
+              >, la
+              <a
+                th:href="@{/register/politicas-datos}"
+                id=""
+                target="_blank"
+                rel="nofollow"
+                >Política de datos</a
+              >
+              y la
+              <a
+                th:href="@{/register/politicas-cookies}"
+                id=""
+                target="_blank"
+                rel="nofollow"
+                >Política de cookies</a
+              >. Es posible que te enviemos notificaciones por SMS, que puedes
+              desactivar cuando quieras.
+            </p>
+          </div>
+          <div class="recaptcha-container">
+            <div
+              class="g-recaptcha"
+              data-sitekey="6Le-NRUdAAAAAJfVfKk6D__VaR8wD3LLgmggO2rp"
+            ></div>
+            <div id="status"></div>
+          </div>
+          <div class="input-register">
+            <button type="submit" class="register-btn" onclick="Registrarme()">
+              Registrarme
+            </button>
+          </div>
+        </form>
+
+        <div class="login-account">
+          <p>¿Ya tienes cuenta?</p>
+          <a th:href="@{/login}" class="login-link">Ingresa aqui</a>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="/scripts/register.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script
+    defer
+    src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+    integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
+    crossorigin="anonymous"
+  ></script>
+</html>
