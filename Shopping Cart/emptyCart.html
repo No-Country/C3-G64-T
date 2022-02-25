@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/91231a0f83.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="emptyCart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <title>GetPass</title>
+
+
+</head>
+
+<body>
+    <header class="header">
+        <div class="navHeader">
+            <a th:href="#" class="navLogo">
+                <img class="logo" src="assets/images/logo.jpeg" alt="">
+                <h1 class="title">GetPass</h1>
+            </a>
+            <div class="navUser">
+                <a th:href="#"> Mi cuenta </a>
+                <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+        </div>
+        <nav>
+            <ul class="categories">
+                <li>Familia</li>
+                <li>Deportes</li>
+                <li>Musica</li>
+                <li>Teatro</li>
+                <li>Especiales</li>
+            </ul>
+        </nav>
+    </header>
+    <section class="col text-center">
+        <div class="d-flex flex-column justify-content-center">
+            <img class="empty-cart align-self-center" src="/assets/images/empty-cart.png" alt="empty-cart">
+            <h5 class="empty-text text-center py-5">Tu carrito está vacío</h5>
+        </div>
+        <button class="btn btn-sm rounded-lg">Comprar</button>
+    </section>
+</body>
+
+</html>
